@@ -1,0 +1,21 @@
+{
+  "id": "nodejs-bot",
+  "name": "Node.js Bot",
+  "description": "A Discord/Telegram-style bot template powered by Node.js. Includes a ready-to-run entry point with graceful shutdown handling.",
+  "runtime": "node",
+  "version": "1.0.0",
+  "startCommand": "node index.js",
+  "allowedCommands": [
+    "node",
+    "npm start",
+    "npm install"
+  ],
+  "defaultFiles": {
+    "index.js": "// ─── Node.js Bot Template ───────────────────────────────────\n// A simple bot skeleton that logs to stdout every 5 seconds.\n// Replace the interval logic with your own bot framework\n// (discord.js, telegraf, etc).\n\nconst BOT_NAME = process.env.BOT_NAME || 'MyBot';\n\nconsole.log(`[${BOT_NAME}] Bot is starting...`);\n\nlet tick = 0;\nconst interval = setInterval(() => {\n  tick++;\n  console.log(`[${BOT_NAME}] Heartbeat #${tick} — ${new Date().toISOString()}`);\n}, 5000);\n\n// Graceful shutdown\nprocess.on('SIGINT', () => {\n  console.log(`[${BOT_NAME}] Received SIGINT. Shutting down...`);\n  clearInterval(interval);\n  process.exit(0);\n});\n\nprocess.on('SIGTERM', () => {\n  console.log(`[${BOT_NAME}] Received SIGTERM. Shutting down...`);\n  clearInterval(interval);\n  process.exit(0);\n});\n\nconsole.log(`[${BOT_NAME}] Bot is online!`);\n",
+    "package.json": "{\n  \"name\": \"nodejs-bot\",\n  \"version\": \"1.0.0\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"start\": \"node index.js\"\n  }\n}\n"
+  },
+  "environment": {
+    "BOT_NAME": "MyBot"
+  },
+  "tags": ["bot", "nodejs", "discord", "telegram"]
+}
