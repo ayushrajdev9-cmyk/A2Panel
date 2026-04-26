@@ -1,14 +1,12 @@
 // ─────────────────────────────────────────────────────────────
 // Panel Backend — Application Entry Point
 // ─────────────────────────────────────────────────────────────
-// Bootstraps Express, registers middleware, mounts routes,
-// and starts the HTTP server.
-// ─────────────────────────────────────────────────────────────
 
 require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const serverRoutes = require('./routes/servers');
 const templateRoutes = require('./routes/templates');
 const { errorHandler, notFoundHandler } = require('./utils/errors');
@@ -20,6 +18,9 @@ const PORT = process.env.PORT || 3000;
 // ── Global Middleware ────────────────────────────────────────
 app.use(cors());
 app.use(express.json());
+
+// Serve the frontend dashboard
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Request logging
 app.use((req, _res, next) => {
@@ -36,7 +37,7 @@ app.get('/health', (_req, res) => {
   });
 });
 
-// ── Routes ───────────────────────────────────────────────────
+// ── API Routes ───────────────────────────────────────────────
 app.use('/servers', serverRoutes);
 app.use('/templates', templateRoutes);
 
@@ -60,6 +61,7 @@ process.on('SIGTERM', () => shutdown('SIGTERM'));
 app.listen(PORT, () => {
   logger.info(`🚀 Panel Backend running on http://localhost:${PORT}`);
   logger.info(`📋 Environment: ${process.env.NODE_ENV || 'development'}`);
+  logger.info(`🖥️  Dashboard: http://localhost:${PORT}`);
 });
 
 module.exports = app;
