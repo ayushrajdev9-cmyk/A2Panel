@@ -1,0 +1,22 @@
+{
+  "id": "basic-app",
+  "name": "Basic Web App",
+  "description": "A minimal HTTP web application template. Ships with a lightweight static server — perfect for landing pages, dashboards, or API prototypes.",
+  "runtime": "node",
+  "version": "1.0.0",
+  "startCommand": "node server.js",
+  "allowedCommands": [
+    "node",
+    "npm start",
+    "npm install"
+  ],
+  "defaultFiles": {
+    "server.js": "// ─── Basic Web App Template ─────────────────────────────────\n// A zero-dependency HTTP server that serves static files\n// from the /public directory.\n\nconst http = require('http');\nconst fs   = require('fs');\nconst path = require('path');\n\nconst PORT = process.env.PORT || 8080;\n\nconst MIME_TYPES = {\n  '.html': 'text/html',\n  '.css':  'text/css',\n  '.js':   'application/javascript',\n  '.json': 'application/json',\n  '.png':  'image/png',\n  '.jpg':  'image/jpeg',\n  '.svg':  'image/svg+xml',\n};\n\nconst server = http.createServer((req, res) => {\n  let filePath = path.join(__dirname, 'public', req.url === '/' ? 'index.html' : req.url);\n  const ext = path.extname(filePath);\n  const contentType = MIME_TYPES[ext] || 'application/octet-stream';\n\n  fs.readFile(filePath, (err, data) => {\n    if (err) {\n      res.writeHead(404, { 'Content-Type': 'text/html' });\n      res.end('<h1>404 — Not Found</h1>');\n      return;\n    }\n    res.writeHead(200, { 'Content-Type': contentType });\n    res.end(data);\n  });\n});\n\nserver.listen(PORT, () => {\n  console.log(`[BasicApp] Server running on http://localhost:${PORT}`);\n});\n\nprocess.on('SIGINT',  () => { server.close(); process.exit(0); });\nprocess.on('SIGTERM', () => { server.close(); process.exit(0); });\n",
+    "public/index.html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Basic App</title>\n  <style>\n    body { font-family: system-ui, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #0f172a; color: #e2e8f0; }\n    h1 { font-size: 2rem; }\n  </style>\n</head>\n<body>\n  <h1>🚀 Your app is running!</h1>\n</body>\n</html>\n",
+    "package.json": "{\n  \"name\": \"basic-app\",\n  \"version\": \"1.0.0\",\n  \"main\": \"server.js\",\n  \"scripts\": {\n    \"start\": \"node server.js\"\n  }\n}\n"
+  },
+  "environment": {
+    "PORT": "8080"
+  },
+  "tags": ["web", "app", "http", "static"]
+}

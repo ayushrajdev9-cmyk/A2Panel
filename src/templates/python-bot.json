@@ -1,0 +1,22 @@
+{
+  "id": "python-bot",
+  "name": "Python Bot",
+  "description": "A Python-based bot template with an async-ready structure. Uses a simple polling loop that you can replace with your preferred framework (discord.py, python-telegram-bot, etc).",
+  "runtime": "python",
+  "version": "1.0.0",
+  "startCommand": "python main.py",
+  "allowedCommands": [
+    "python",
+    "python3",
+    "pip install",
+    "pip3 install"
+  ],
+  "defaultFiles": {
+    "main.py": "#!/usr/bin/env python3\n# ─── Python Bot Template ────────────────────────────────────\n# A simple bot skeleton that logs to stdout every 5 seconds.\n# Replace the loop with your own async bot framework.\n\nimport time\nimport signal\nimport sys\nimport os\n\nBOT_NAME = os.environ.get('BOT_NAME', 'PyBot')\n\ndef shutdown(signum, frame):\n    print(f'[{BOT_NAME}] Received signal {signum}. Shutting down...')\n    sys.exit(0)\n\nsignal.signal(signal.SIGINT, shutdown)\nsignal.signal(signal.SIGTERM, shutdown)\n\ndef main():\n    print(f'[{BOT_NAME}] Bot is starting...')\n    print(f'[{BOT_NAME}] Bot is online!')\n    tick = 0\n    while True:\n        tick += 1\n        print(f'[{BOT_NAME}] Heartbeat #{tick} — {time.strftime(\"%Y-%m-%dT%H:%M:%S\")}')\n        time.sleep(5)\n\nif __name__ == '__main__':\n    main()\n",
+    "requirements.txt": "# Add your Python dependencies here\n# Example:\n# discord.py>=2.0\n# python-telegram-bot>=20.0\n"
+  },
+  "environment": {
+    "BOT_NAME": "PyBot"
+  },
+  "tags": ["bot", "python", "discord", "telegram"]
+}
