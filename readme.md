@@ -13,13 +13,31 @@ A2Panel is a free, open-source game server control panel that gives you a modern
 - Free and open-source
 - Built for personal servers, communities, and hosting providers
 
-## Getting Started
+## One-Line Install (Ubuntu/Debian)
 
-To run A2Panel, you need:
+Run on a fresh VPS as root:
 
-- A server with PHP 8.3+, Composer, Node.js, Redis, and a database (MySQL/MariaDB)
-- Docker installed for containerized game servers
-- [Wings](https://github.com/pelican-dev/wings) daemon for server management
+```bash
+curl -sSL https://github.com/ayushrajdev9-cmyk/A2Panel/raw/main/install.sh | \
+  sudo DOMAIN=panel.yourdomain.com bash
+```
+
+The script installs everything: PHP 8.3, Composer, Node.js, MariaDB, Redis, Nginx, Docker, the panel itself, SSL via Certbot, and creates your admin user. Credentials are shown at the end.
+
+### Manual Setup
+
+Prerequisites: PHP 8.3+, Composer, Node.js 22+, Redis, MariaDB/MySQL, Docker, Nginx.
+
+```bash
+git clone https://github.com/ayushrajdev9-cmyk/A2Panel.git /var/www/a2panel
+cd /var/www/a2panel
+cp .env.example .env
+# Edit .env with your DB credentials and APP_URL
+composer install --no-dev
+npm install && npm run build
+php artisan key:generate
+php artisan migrate --force --seed
+```
 
 ## Credits
 
