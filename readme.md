@@ -21,13 +21,6 @@ curl -sSL https://github.com/ayushrajdev9-cmyk/A2Panel/raw/main/install.sh | \
 ```
 Requires [Homebrew](https://brew.sh) — installed automatically if missing.
 
-### Windows
-```powershell
-# Run PowerShell as Administrator
-iwr -useb https://github.com/ayushrajdev9-cmyk/A2Panel/raw/main/install.ps1 | iex
-```
-Requires WSL2 with Ubuntu + Docker Desktop.
-
 ## Manual Setup
 
 Prerequisites: PHP 8.3+, Composer, Node.js 22+, Redis, MariaDB/MySQL, Docker, Nginx.
