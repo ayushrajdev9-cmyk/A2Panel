@@ -90,7 +90,7 @@ php artisan migrate --force --seed
 <div align="center">
 
 [![GitHub](https://img.shields.io/badge/GitHub-A2Panel-181717?style=for-the-badge&logo=github)](https://github.com/ayushrajdev9-cmyk/A2Panel)
-[![Discord](https://img.shields.io/badge/Discord-Join_Us-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/your-invite)
+[![Discord](https://img.shields.io/badge/Discord-Join_Us-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/SJKJSwmyDM)
 
 **⭐ Star the repo — it helps a lot!**
 
@@ -99,3 +99,5 @@ php artisan migrate --force --seed
 ## 📄 License
 
 This project is licensed under the **GNU Affero General Public License v3.0** — see the [LICENSE](license) file for details.
+## btw it supports all major or linux, windows, macos
+
