@@ -37,9 +37,12 @@ class EggConfigurationService
             ? $this->replacePlaceholders($server, $configFiles)
             : [];
 
+        $startup = json_decode($server->egg->inherit_config_startup, true);
+        $startup = is_array($startup) ? $startup : [];
+
         return [
-            'startup' => $this->convertStartupToNewFormat(json_decode($server->egg->inherit_config_startup, true)),
-            'stop' => $this->convertStopToNewFormat($server->egg->inherit_config_stop),
+            'startup' => $this->convertStartupToNewFormat($startup),
+            'stop' => $this->convertStopToNewFormat($server->egg->inherit_config_stop ?? ''),
             'configs' => $configs,
         ];
     }
