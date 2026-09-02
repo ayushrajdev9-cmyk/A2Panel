@@ -54,7 +54,7 @@ class EditUser extends EditRecord
         if (!$record instanceof User) {
             return $record;
         }
-        unset($data['roles'], $data['avatar']);
+        unset($data['roles'], $data['avatar'], $data['root_admin_role']);
 
         return $this->service->handle($record, $data);
     }

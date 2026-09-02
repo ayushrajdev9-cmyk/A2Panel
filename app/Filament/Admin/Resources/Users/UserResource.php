@@ -361,17 +361,24 @@ class UserResource extends Resource
                         ->columnSpanFull()
                         ->bulkToggleable(false),
                     CheckboxList::make('root_admin_role')
-                        ->visible(fn (?User $user) => $user && $user->isRootAdmin())
-                        ->disabled()
+                        ->live()
                         ->options([
                             'root_admin' => Role::ROOT_ADMIN,
                         ])
                         ->descriptions([
                             'root_admin' => trans('admin/role.root_admin', ['role' => Role::ROOT_ADMIN]),
                         ])
-                        ->formatStateUsing(fn () => ['root_admin'])
-                        ->dehydrated(false)
+                        ->formatStateUsing(fn (User $user) => $user->isRootAdmin() ? ['root_admin'] : [])
+                        ->saveRelationshipsUsing(function (User $user, array $state) {
+                            if (in_array('root_admin', $state, true)) {
+                                $user->assignRole(Role::getRootAdmin());
+                            } elseif ($user->isRootAdmin()) {
+                                $user->removeRole(Role::getRootAdmin());
+                            }
+                        })
+                        ->dehydrated()
                         ->label(trans('admin/user.admin_roles'))
+                        ->helperText('Check to make this user a Root Administrator.')
                         ->columnSpanFull(),
                 ]),
             Tab::make('keys')

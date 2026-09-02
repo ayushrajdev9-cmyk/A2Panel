@@ -56,7 +56,9 @@ class CreateUser extends CreateRecord
 
     protected function handleRecordCreation(array $data): Model
     {
-        $data['root_admin'] = false;
+        $rootAdmin = in_array('root_admin', $data['root_admin_role'] ?? [], true);
+        $data['root_admin'] = $rootAdmin;
+        unset($data['root_admin_role']);
 
         $roles = $data['roles'];
         $roles = collect($roles)->map(fn ($role) => Role::findById($role));

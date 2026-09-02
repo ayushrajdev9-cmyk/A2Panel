@@ -81,7 +81,7 @@ class AppServiceProvider extends ServiceProvider
                 ->asJson()
                 ->withToken($node->daemon_token)
                 ->withHeaders($headers)
-                ->withOptions(['verify' => '/etc/nginx/ssl/wings.crt'])
+                ->withOptions(['verify' => true])
                 ->timeout(config('panel.guzzle.timeout'))
                 ->connectTimeout(config('panel.guzzle.connect_timeout'))
                 ->baseUrl($node->getConnectionAddress())
