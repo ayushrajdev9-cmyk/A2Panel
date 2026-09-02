@@ -49,3 +49,19 @@
 ::-webkit-scrollbar-corner {
     background: transparent;
 }
+
+/* ===== TERMINAL INPUT ===== */
+#send-command {
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    caret-color: currentColor;
+    font-family: monospace;
+    -webkit-user-modify: read-write-plaintext-only;
+}
+#send-command:focus, #send-command:active {
+    text-transform: none !important;
+}
+/* Prevent iOS/Android autocapitalize/autocorrect visual artifacts */
+#terminal, #send-command {
+    -webkit-tap-highlight-color: transparent;
+}

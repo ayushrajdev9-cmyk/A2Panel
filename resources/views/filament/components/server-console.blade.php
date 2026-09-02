@@ -29,11 +29,15 @@
             />
             <input
                 id="send-command"
-                class="w-full focus:outline-none focus:ring-0 border-none dark:bg-gray-900 p-1"
+                class="w-full focus:outline-none focus:ring-0 border-none dark:bg-gray-900 p-1 font-mono"
                 type="text"
                 :readonly="{{ $this->canSendCommand() ? 'false' : 'true' }}"
                 title="{{ $this->canSendCommand() ? '' : trans('server/console.command_blocked_title') }}"
                 placeholder="{{ $this->canSendCommand() ? trans('server/console.command') : trans('server/console.command_blocked') }}"
+                autocomplete="off"
+                autocapitalize="off"
+                autocorrect="off"
+                spellcheck="false"
                 wire:model="input"
                 wire:keydown.enter="enter"
                 wire:keydown.up.prevent="up"

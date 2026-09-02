@@ -452,3 +452,77 @@ body::before {
 footer {
   border-top: 1px solid rgba(99, 102, 241, 0.06) !important;
 }
+
+/* ===== DARK MODE ROBUSTNESS ===== */
+
+/* Default/gray buttons must NOT stay white in dark mode */
+.dark .fi-btn:not(.fi-btn-primary):not(.fi-btn-danger):not(.fi-btn-success) {
+  background: rgba(43, 58, 85, 0.95) !important;
+  color: rgba(226, 232, 244, 0.95) !important;
+  border: 1px solid rgba(99, 102, 241, 0.16) !important;
+}
+.dark .fi-btn:not(.fi-btn-primary):not(.fi-btn-danger):not(.fi-btn-success):hover {
+  background: rgba(58, 76, 108, 0.98) !important;
+  border-color: rgba(99, 102, 241, 0.35) !important;
+}
+.dark .fi-btn:not(.fi-btn-primary):not(.fi-btn-danger):not(.fi-btn-success):disabled {
+  background: rgba(50, 60, 80, 0.5) !important;
+  color: rgba(160, 175, 200, 0.5) !important;
+  border-color: transparent !important;
+}
+
+/* Icon buttons (e.g. row actions, header actions) in dark mode */
+.dark .fi-icon-btn {
+  color: rgba(200, 210, 230, 0.9) !important;
+}
+.dark .fi-icon-btn:hover {
+  background: rgba(99, 102, 241, 0.12) !important;
+  color: #fff !important;
+}
+
+/* Inputs & selects: proper dark backgrounds so they don't render white */
+.dark .fi-input-wrp input,
+.dark .fi-input-wrp textarea,
+.dark .fi-select-input,
+.dark .fi-input {
+  color: rgba(226, 232, 244, 0.95) !important;
+  caret-color: #818cf8 !important;
+}
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: rgba(180, 195, 220, 0.5) !important;
+  opacity: 1 !important;
+}
+
+/* Dropdown panels & checkbox lists in dark mode */
+.dark .fi-dropdown-list,
+.dark .fi-checkbox-list,
+.dark .fi-select-menu {
+  background: rgba(24, 34, 52, 0.98) !important;
+  border-color: rgba(99, 102, 241, 0.14) !important;
+}
+.dark .fi-dropdown-list .fi-dropdown-list-item,
+.dark .fi-select-input-option {
+  color: rgba(220, 228, 240, 0.9) !important;
+}
+.dark .fi-dropdown-list .fi-dropdown-list-item:hover {
+  background: rgba(99, 102, 241, 0.12) !important;
+}
+
+/* Tables: keep header/text contrast in dark */
+.dark .fi-wi-stats-overview-stat .fi-wi-stats-overview-stat-label {
+  color: rgba(180, 195, 220, 0.8) !important;
+}
+
+/* Modal footer/menu backgrounds in dark */
+.dark .fi-modal-footer,
+.dark .fi-modal-header {
+  border-color: rgba(99, 102, 241, 0.12) !important;
+}
+
+/* Light mode: strengthen card/section borders for readability */
+.fi-card,
+.fi-section {
+  border-color: rgba(99, 102, 241, 0.12) !important;
+  box-shadow: 0 2px 12px rgba(30, 41, 82, 0.06) !important;
+}

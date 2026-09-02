@@ -25,6 +25,38 @@ class HostControl extends Page
 
     public array $selectedNode = [];
 
+    public string $command = '';
+
+    public string $consoleOutput = '';
+
+    /**
+     * Run a shell command on this host (panel + node share the same machine).
+     * Restricted to root admins via HostControl::canAccess().
+     */
+    public function runCommand(): void
+    {
+        $this->consoleOutput = '';
+        $command = trim($this->command);
+
+        if ($command === '') {
+            $this->consoleOutput = '$ (empty command)';
+            return;
+        }
+
+        if (in_array($command, ['clear', 'cls'], true)) {
+            $this->consoleOutput = '';
+            $this->command = '';
+            return;
+        }
+
+        $output = null;
+        $exit = null;
+        exec($command . ' 2>&1', $output, $exit);
+
+        $this->consoleOutput = '$ ' . $command . "\n" . implode("\n", $output) . ($exit !== 0 ? "\n[exit: {$exit}]" : '');
+        $this->command = '';
+    }
+
     public function getNodes(): array
     {
         $result = [];
@@ -80,7 +112,9 @@ class HostControl extends Page
                 'node' => $server->node->name ?? '—',
                 'egg' => $server->egg->name ?? '—',
                 'image' => $server->image,
-                'alloc' => $server->allocation ? ($server->allocation->ip . ':' . $server->allocation->port) : '—',
+                'addr' => $server->allocation ? ($server->allocation->ip . ':' . $server->allocation->port) : '—',
+                'ip' => $server->allocation->ip ?? '—',
+                'port' => $server->allocation->port ?? '—',
                 'memory' => $this->humanBytes($server->memory * 1000 * 1000),
                 'disk' => $this->humanBytes($server->disk * 1000 * 1000),
                 'status' => $status,
