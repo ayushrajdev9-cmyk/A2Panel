@@ -379,6 +379,13 @@ class CreateServer extends CreateRecord
                             $set('startup', '');
                             $set('image', '');
 
+                            $eggImages = $egg->docker_images ?? [];
+                            $defaultImage = collect($eggImages)->first();
+                            if ($defaultImage) {
+                                $set('image', $defaultImage);
+                                $set('select_image', $defaultImage);
+                            }
+
                             $variables = $egg->variables ?? [];
                             $serverVariables = collect();
                             foreach ($variables as $variable) {
