@@ -57,6 +57,7 @@ class ServerConsole extends Widget
             ->setUser($this->user)
             ->setClaims([
                 'server_uuid' => $this->server->uuid,
+                'scope' => 'websocket',
                 'permissions' => $permissions,
             ])
             ->handle($this->server->node, $this->user->id . $this->server->uuid)->toString();

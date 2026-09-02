@@ -22,7 +22,7 @@ class GetUserPermissionsService
         $isAdmin = $user->isAdmin() && ($user->can('view', $server) || $user->can('update', $server));
 
         if ($isOwner && !$isAdmin) {
-            return ['*'];
+            return array_merge(['*'], collect(SubuserPermission::cases())->map->value->all());
         }
 
         $adminPermissions = [
@@ -32,7 +32,11 @@ class GetUserPermissionsService
         ];
 
         if ($isAdmin && ($isOwner || $user->can('update', $server))) {
-            return array_merge(['*'], $adminPermissions);
+            return array_merge(
+                ['*'],
+                collect(SubuserPermission::cases())->map->value->all(),
+                $adminPermissions,
+            );
         }
 
         /** @var Subuser|null $subuser */
