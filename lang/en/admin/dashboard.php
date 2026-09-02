@@ -6,6 +6,7 @@ return [
     'advanced' => 'Advanced',
     'server' => 'Server',
     'user' => 'User',
+    'control' => 'Host Control',
     'sections' => [
         'intro-developers' => [
             'heading' => 'Information for Developers',
